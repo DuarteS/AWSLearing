@@ -14,6 +14,8 @@ class AddNote extends Component {
         this.state = { text: '' };
     }
 
+
+
     handleChange = (event) => {
         this.setState({ text: event.target.value });
     }
@@ -56,12 +58,18 @@ class NotesList extends Component {
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = { notes: [] };
+        this.state = { notes: [],stringTest:"" };
     }
 
     async componentDidMount() {
         var result = await API.graphql(graphqlOperation(listNotes));
         this.setState({ notes: result.data.listNotes.items });
+
+        fetch("http://myawsscdplanet-env.eba-tb9pmhpq.eu-central-1.elasticbeanstalk.com/hello").then(
+            result=>{
+                this.setState({stringTest:result});
+            }
+        )
     }
 
     deleteNote = async (note) => {
@@ -82,6 +90,7 @@ class App extends Component {
         return (
             <div style={styles.container}>
                 <h1>Notes App</h1>
+                <h2>{this.state.stringTest}</h2>
                 <AddNote addNote={this.addNote} />
                 <NotesList notes={this.state.notes} deleteNote={this.deleteNote} />
                 <AmplifySignOut />
