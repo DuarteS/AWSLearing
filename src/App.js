@@ -65,7 +65,7 @@ class App extends Component {
         var result = await API.graphql(graphqlOperation(listNotes));
         this.setState({ notes: result.data.listNotes.items });
 
-        fetch("http://myawsscdplanet-env.eba-tb9pmhpq.eu-central-1.elasticbeanstalk.com/hello").then(
+        fetch("https://duartesomsen-backend.com/hello").then(
             result=>{
                 this.setState({stringTest:result});
             }
@@ -89,7 +89,7 @@ class App extends Component {
     render() {
         return (
             <div style={styles.container}>
-                <h1>Notes App</h1>
+                <h1>Notes App {this.state.stringTest} </h1>
                 <h2>{this.state.stringTest}</h2>
                 <AddNote addNote={this.addNote} />
                 <NotesList notes={this.state.notes} deleteNote={this.deleteNote} />
