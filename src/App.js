@@ -65,11 +65,7 @@ class App extends Component {
         var result = await API.graphql(graphqlOperation(listNotes));
         this.setState({ notes: result.data.listNotes.items });
 
-        fetch("https://duartesomsen-backend.com/hello").then(
-            result=>{
-                this.setState({stringTest:result});
-            }
-        )
+
     }
 
     deleteNote = async (note) => {
@@ -84,6 +80,11 @@ class App extends Component {
         var result = await API.graphql(graphqlOperation(createNote, { input: note }));
         this.state.notes.push(result.data.createNote);
         this.setState({ notes: this.state.notes });
+        fetch("https://duartesomsen-backend.com/hello").then(
+            result=>{
+                this.setState({stringTest:result});
+            }
+        )
     }
 
     render() {
